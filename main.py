@@ -26,7 +26,10 @@ print(df)
 
 # Sett till att Huvudman är strängar och att Totalt (poäng) är numeriskt
 df["Huvudman"] = df["Huvudman"].astype(str)
-df["Totalt (poäng)"] = pd.to_numeric(df["Totalt (poäng)"], errors="coerce")
+
+# Se till att poängkolumnerna är numeriska
+for category in ["Totalt (poäng)", "Flickor (poäng)", "Pojkar (poäng)"]:
+    df[category] = pd.to_numeric(df[category], errors="coerce")
 
 # Skapat en stapelgraf för totala poäng per huvudman
 plt.figure(figsize=(8, 5))  # Storlek på diagrammet
@@ -58,4 +61,14 @@ for i, category in enumerate(categories): # Foorloop
     axes[i].set_ylabel("Poäng")  # Y-axel etikett
     axes[i].tick_params(axis="x", rotation=45)  # Rotera x-etiketter för bättre läsbarhet //gpt tips
 
-    
+# Lagt till en huvudtitel för hela figuren 
+plt.suptitle("Poängfördelning per huvudman", fontsize=14)
+
+# Justerat layout så att allt ser bra ut
+plt.tight_layout(rect=[0, 0, 1, 0.95])
+
+# Sparat figuren i visualiseringsmappen
+plt.savefig("visualiseringar/poängfördelning.png")
+
+# Visar diagrammet
+plt.show()
