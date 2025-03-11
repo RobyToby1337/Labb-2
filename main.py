@@ -1,4 +1,6 @@
 import pandas as pd  # Importerar pandas-biblioteket för att hantera och bearbeta data
+import matplotlib.pyplot as plt #Importerar matplotlib för att kunna skapa graferna
+
 
 # Läs in Excel-filen som innehåller statistik för nationella prov
 file_path = "riket2023_åk9_np.xlsx"
@@ -22,13 +24,11 @@ df.reset_index(drop=True, inplace=True)
 # Skriver ut de första raderna av data för att verifiera att allt ser korrekt ut
 print(df)
 
-import matplotlib.pyplot as plt
-
-# Se till att Huvudman är strängar och att Totalt (poäng) är numeriskt
+# Sett till att Huvudman är strängar och att Totalt (poäng) är numeriskt
 df["Huvudman"] = df["Huvudman"].astype(str)
 df["Totalt (poäng)"] = pd.to_numeric(df["Totalt (poäng)"], errors="coerce")
 
-# Skapa en stapelgraf för totala poäng per huvudman
+# Skapat en stapelgraf för totala poäng per huvudman
 plt.figure(figsize=(8, 5))  # Storlek på diagrammet
 plt.bar(df["Huvudman"], df["Totalt (poäng)"], color=['blue', 'green', 'red', 'purple'])
 
@@ -42,3 +42,11 @@ plt.savefig("visualiseringar/totala_poäng.png")
 
 # Visa grafen
 plt.show()
+
+# Skapatt en figur med tre subplots (1 rad, 3 kolumner)
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+# Lista med kategorier och färger
+categories = ["Totalt (poäng)", "Flickor (poäng)", "Pojkar (poäng)"]
+colors = ["green", "red", "blue"]
+
