@@ -50,3 +50,12 @@ fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 categories = ["Totalt (poäng)", "Flickor (poäng)", "Pojkar (poäng)"]
 colors = ["green", "red", "blue"]
 
+# Loopa genom kategorierna och ritar upp stapeldiagramt
+for i, category in enumerate(categories): # Foorloop
+    axes[i].bar(df["Huvudman"], df[category], color=colors[i])  # Stapeldiagram
+    axes[i].set_title(category)  # Titel för subplot
+    axes[i].set_xlabel("Huvudman")  # X-axel etikett
+    axes[i].set_ylabel("Poäng")  # Y-axel etikett
+    axes[i].tick_params(axis="x", rotation=45)  # Rotera x-etiketter för bättre läsbarhet //gpt tips
+
+    
