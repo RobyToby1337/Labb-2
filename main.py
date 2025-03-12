@@ -85,3 +85,11 @@ for subject, df in dataframes.items():
 
     # Visar diagrammet
     plt.show()
+
+    # Filnamn för datasetet
+file_path = "betyg_o_prov_riksnivå.xlsx"
+
+    # Läser in Tabell 1B från Excel-filen
+sheet_name = "Tabell 1B"
+df = pd.read_excel(file_path, sheet_name=sheet_name, skiprows=5, header=0)
+
