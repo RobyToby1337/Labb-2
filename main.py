@@ -107,3 +107,15 @@ df = df[df["Läsår"].astype(str).str.contains("2018/19|2019/20|2020/21|2021/22|
 
 # Skriver ut resultatet 
 print(df)
+
+# Skapar linjediagram med Plotly
+fig = px.line(df, x="Läsår", y=["Totalt", "Flickor", "Pojkar"], 
+              markers=True, title="Andel elever som saknar godkänt betyg per läsår",
+              labels={"value": "Andel elever (%)", "variable": "Grupp"})
+
+# Spara figuren i visualiseringsmappen
+os.makedirs("visualiseringar", exist_ok=True)  # Se till att mappen finns
+fig.write_image("visualiseringar/andel_ej_godkant_betyg.png")
+
+# Visa diagrammet
+fig.show()
