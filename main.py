@@ -93,6 +93,13 @@ file_path = "betyg_o_prov_riksnivå.xlsx"
 sheet_name = "Tabell 1B"
 df = pd.read_excel(file_path, sheet_name=sheet_name, skiprows=5, header=0)
 
+# 🔍 Debugging - Skriv ut kolumnnamnen för att se vad de faktiskt heter
+print("Kolumnnamn i df:")
+print(df.columns)
+
+# Rensa osynliga tecken (mellanslag, radbrytningar)
+df.columns = df.columns.str.replace("\n", " ", regex=True).str.strip()
+
 # kolumner för andel elever som inte har godkänt betyg
 columns_to_keep = ["Läsår", "Andel (%) elever som saknar godkänt betyg i ett, flera eller alla ämnen - Totalt", 
                    "Andel (%) elever som saknar godkänt betyg i ett, flera eller alla ämnen - Flickor", 
