@@ -102,3 +102,8 @@ df = df[columns_to_keep]
 # Byter namn på kolumner
 df.columns = ["Läsår", "Totalt", "Flickor", "Pojkar"]
 
+# Filtrera för att endast inkludera läsåren 2018/19 till 2022/23
+df = df[df["Läsår"].astype(str).str.contains("2018/19|2019/20|2020/21|2021/22|2022/23")]
+
+# Skriver ut resultatet 
+print(df)
