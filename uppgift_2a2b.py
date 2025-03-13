@@ -13,3 +13,7 @@ df.rename(columns={"Unnamed: 0": "Läsår"}, inplace=True)
 # Skriver ut alla kolumnnamn 
 print("Kolumnnamn innan vi byter namn:")
 print(df.columns.value_counts())  # Visar om det finns dubbletter
+
+# Filtrera så att vi endast har de rader som innehåller årtalen 2018/19 – 2022/23
+df = df[df["Läsår"].astype(str).str.match(r"^\d{4}/\d{2}$")]
+
