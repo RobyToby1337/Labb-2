@@ -28,3 +28,13 @@ else:
 print("Kolumnnamn efter namnbyte:")
 print(df.columns)
 
+# Väljer de rätta kolumnerna för diagrammet
+if "Totalt (%)" in df.columns:
+    korrekt_kolumner = ["Totalt (%)", "Flickor (%)", "Pojkar (%)"]
+else:
+    korrekt_kolumner = ["Totalt", "Flickor", "Pojkar"]
+
+# Kontrollera att de valda kolumnerna finns i DataFrame, annars stoppa programmet
+förlorade_kolumner = [kol for kol in korrekt_kolumner if kol not in df.columns]
+if förlorade_kolumner:
+    raise ValueError(f"Följande kolumner saknas: {förlorade_kolumner}")
