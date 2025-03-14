@@ -74,5 +74,11 @@ df.rename(columns={"Unnamed: 0": "Läsår"}, inplace=True)
 #  Filtrera ut endast läsår 2018/19 – 2022/23
 df = df[df["Läsår"].astype(str).str.match(r"^\d{4}/\d{2}$")] # gpts tips Den filtrerar alltså ut endast de rader där Läsår är skrivet som YYYY/YY
 
+# Bytt namn på relevanta kolumner
+df.rename(columns={
+    "Totalt.2": "Totalt (%)",
+    "Flickor.2": "Flickor (%)",
+    "Pojkar.2": "Pojkar (%)"
+}, inplace=True) # betyder att ändringarna sparas direkt i df utan att behöva skapa en ny variabel.
 
 
