@@ -1,7 +1,7 @@
 import plotly.express as px
 import pandas as pd
 import os
-
+# Uppgift 2a
 # Läser in Excel-filen med betygsdata
 # Anger  att header-raden är rad 7 från 0 
 header_row = 7  
@@ -52,4 +52,15 @@ fig = px.line(df, x="Läsår", # X-axeln visar olika läsår 2018/19 - 2022/23
 fig.update_traces(line=dict(width=3), marker=dict(size=8))  # Gör linjerna tjockare (3 px) och förstorar markörerna (8 px)
 fig.update_yaxes(title_text="Andel elever utan godkänt betyg (%)") # Sätter en tydlig titel på y-axeln så att det framgår vad som mäts
 fig.update_xaxes(title_text="Läsår") # Sätter en tydlig titel på x-axeln så att det framgår vilka årtal som visas
+
+# Sparar filen med ett beskrivande namn i befintlig mapp
+html_path = "visualiseringar/andel_elever_utan_godkänt.html"
+fig.write_html(html_path)
+
+print(f"Grafen har sparats som HTML: {html_path}")
+
+# Visa grafen i webbläsaren
+fig.show()
+
+
 
