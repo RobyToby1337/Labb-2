@@ -53,7 +53,7 @@ fig.update_traces(line=dict(width=3), marker=dict(size=8))  # Gör linjerna tjoc
 fig.update_yaxes(title_text="Andel elever utan godkänt betyg (%)") # Sätter en tydlig titel på y-axeln så att det framgår vad som mäts
 fig.update_xaxes(title_text="Läsår") # Sätter en tydlig titel på x-axeln så att det framgår vilka årtal som visas
 
-# Sparar filen med ett beskrivande namn i befintlig mapp
+# Sparar filen i mappen visualiseringar
 html_path = "visualiseringar/andel_elever_utan_godkänt.html"
 fig.write_html(html_path)
 
