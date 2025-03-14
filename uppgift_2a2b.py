@@ -62,5 +62,17 @@ print(f"Grafen har sparats som HTML: {html_path}")
 # Visa grafen i webbläsaren
 fig.show()
 
+# 2B 
+
+#Läser in Excel-filen betyg o prov riksnivå
+header_row = 7  # Radnumret där kolumnrubrikerna börjar
+df = pd.read_excel("betyg_o_prov_riksnivå.xlsx", sheet_name="Tabell 1B", engine="openpyxl", header=header_row)
+
+# Bytt namn på första kolumnen till Läsår
+df.rename(columns={"Unnamed: 0": "Läsår"}, inplace=True)
+
+#  Filtrera ut endast läsår 2018/19 – 2022/23
+df = df[df["Läsår"].astype(str).str.match(r"^\d{4}/\d{2}$")] # gpts tips Den filtrerar alltså ut endast de rader där Läsår är skrivet som YYYY/YY
+
 
 
