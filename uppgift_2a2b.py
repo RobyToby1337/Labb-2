@@ -38,3 +38,18 @@ else:
 förlorade_kolumner = [kol for kol in korrekt_kolumner if kol not in df.columns]
 if förlorade_kolumner:
     raise ValueError(f"Följande kolumner saknas: {förlorade_kolumner}")
+
+# Skapar ett linjediagram med plotly express
+fig = px.line(df, x="Läsår", # X-axeln visar olika läsår 2018/19 - 2022/23
+              y=korrekt_kolumner, # Y-axeln visar andelen elever utan godkänt betyg (%)
+              markers=True, # Lägger till punkter på linjerna för att tydliggöra värdena
+              title="Andel elever utan godkänt betyg (2018-2023)",  # Titel för diagrammet
+              labels={"value": "Andel elever (%)", "variable": "Kön", "Läsår": "Läsår"}) # Anpassar etiketter
+
+# Anpassar utseendet på grafen # - Ökar linjebredden för bättre synlighet
+# Gör markörerna större så att datapunkterna blir tydligare
+# Lägger till tydliga titlar på x- och y-axlarna
+fig.update_traces(line=dict(width=3), marker=dict(size=8))  # Gör linjerna tjockare (3 px) och förstorar markörerna (8 px)
+fig.update_yaxes(title_text="Andel elever utan godkänt betyg (%)") # Sätter en tydlig titel på y-axeln så att det framgår vad som mäts
+fig.update_xaxes(title_text="Läsår") # Sätter en tydlig titel på x-axeln så att det framgår vilka årtal som visas
+
