@@ -74,24 +74,42 @@ df.rename(columns={"Unnamed: 0": "Läsår"}, inplace=True)
 #  Filtrera ut endast läsår 2018/19 – 2022/23
 df = df[df["Läsår"].astype(str).str.match(r"^\d{4}/\d{2}$")] # gpts tips Den filtrerar alltså ut endast de rader där Läsår är skrivet som YYYY/YY
 
-# Bytt namn på relevanta kolumner
-df.rename(columns={
-    "Totalt.2": "Totalt (%)",
-    "Flickor.2": "Flickor (%)",
-    "Pojkar.2": "Pojkar (%)"
-}, inplace=True) # betyder att ändringarna sparas direkt i df utan att behöva skapa en ny variabel.
+df.rename(columns={ # # Byter namn på kolumner för att tydliggöra att de gäller meritvärde i 16 ämnen
+    "Totalt": "Totalt 16 ämnen",
+    "Flickor": "Flickor 16 ämnen",
+    "Pojkar": "Pojkar 16 ämnen"
+}, inplace=True) #  gör att ändringarna sker direkt i df utan att skapa en ny variabel
 
-# Väljer de korrekta kolumnerna för andel elever utan godkänt betyg
-korrekt_kolumner = ["Totalt (%)", "Flickor (%)", "Pojkar (%)"]
+#Välj de korrekta kolumnerna för meritvärde i 16 ämnen
+korrekt_kolumner = ["Totalt 16 ämnen", "Flickor 16 ämnen", "Pojkar 16 ämnen"]
 
 # Kontrollera att de valda kolumnerna finns i dataFrame
 förlorade_kolumner = [kol for kol in korrekt_kolumner if kol not in df.columns]
 if förlorade_kolumner:
     raise ValueError(f"Följande kolumner saknas: {förlorade_kolumner}")
 
-# Skapar ett linjediagram för andel elever utan godkänt betyg # Använder Plotly Express för att visualisera andelen elever utan godkänt betyg över tid
-fig = px.line(df, x="Läsår", # X-axeln representerar läsåren
-              y=korrekt_kolumner, # Y-axeln visar andelen elever utan godkänt betyg för olika grupper totalt Flickor Pojkar
-              markers=True, # för prickar i diagrammet. 
-              title="Andel elever utan godkänt betyg (2018-2023)", #diagramtitel 
-              labels={"value": "Andel elever (%)", "variable": "Kön", "Läsår": "Läsår"})
+# Skapa ett linjediagram för meritvärde i 16 ämnen
+fig = px.line(df, x="Läsår", # x-axeln representerar läsåren 2018/19 – 2022/23
+              y=korrekt_kolumner, #y-axeln visar meritvärde för totalt, flickor och pojkar
+              markers=True, # Lägger till prickar i grafen 
+              title="Meritvärde för 16 ämnen (2018-2023)", # Titelnamn
+              labels={"value": "Meritvärde", "variable": "Kön", "Läsår": "Läsår"}) 
+
+# Anpassar utseendet på grafen 
+# Gör linjerna tjockare width=3 för bättre synlighet gpt tips
+# Förstorar markörerna punkterna på linjen size=8 för att göra datapunkterna tydligare
+# Anpassa utseendet på grafen
+fig.update_traces(line=dict(width=3), marker=dict(size=8))  
+fig.update_yaxes(title_text="Meritvärde")
+fig.update_xaxes(title_text="Läsår")
+
+#Spara grafen som htlm i mappen "visualiseringar"
+output_dir = "visualiseringar"
+os.makedirs(output_dir, exist_ok=True)
+html_path = os.path.join(output_dir, "meritvärde_16_ämnen.html")
+fig.write_html(html_path)
+
+print(f"Graf sparad som HTML: {html_path}")
+
+# Visa grafen i webbläsaren
+fig.show()
