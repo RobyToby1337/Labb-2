@@ -15,5 +15,16 @@ print("Kolumnnamn innan vi byter namn:")
 print(df.columns.value_counts())  # Visar om det finns dubbletter
 
 # Filtrera så att vi endast har de rader som innehåller årtalen 2018/19 – 2022/23
-df = df[df["Läsår"].astype(str).str.match(r"^\d{4}/\d{2}$")]
+df = df[df["Läsår"].astype(str).str.match(r"^\d{4}/\d{2}$")] #gpts tips på formeln
+
+# Bytt namn på kolumner för Andel utan godkänt betyg 
+# Om det redan finns en kolumn som heter totalt undviker vi att byta till samma namn
+if "Totalt" in df.columns:
+    df.rename(columns={"Totalt.2": "Totalt (%)", "Flickor.2": "Flickor (%)", "Pojkar.2": "Pojkar (%)"}, inplace=True)
+else:
+    df.rename(columns={"Totalt.2": "Totalt", "Flickor.2": "Flickor", "Pojkar.2": "Pojkar"}, inplace=True)
+
+# Skriv ut kolumnnamnen efter att vi bytt namn
+print("Kolumnnamn efter namnbyte:")
+print(df.columns)
 
