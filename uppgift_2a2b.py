@@ -81,4 +81,17 @@ df.rename(columns={
     "Pojkar.2": "Pojkar (%)"
 }, inplace=True) # betyder att ändringarna sparas direkt i df utan att behöva skapa en ny variabel.
 
+# Väljer de korrekta kolumnerna för andel elever utan godkänt betyg
+korrekt_kolumner = ["Totalt (%)", "Flickor (%)", "Pojkar (%)"]
 
+# Kontrollera att de valda kolumnerna finns i dataFrame
+förlorade_kolumner = [kol for kol in korrekt_kolumner if kol not in df.columns]
+if förlorade_kolumner:
+    raise ValueError(f"Följande kolumner saknas: {förlorade_kolumner}")
+
+# Skapar ett linjediagram för andel elever utan godkänt betyg # Använder Plotly Express för att visualisera andelen elever utan godkänt betyg över tid
+fig = px.line(df, x="Läsår", # X-axeln representerar läsåren
+              y=korrekt_kolumner, # Y-axeln visar andelen elever utan godkänt betyg för olika grupper totalt Flickor Pojkar
+              markers=True, # för prickar i diagrammet. 
+              title="Andel elever utan godkänt betyg (2018-2023)", #diagramtitel 
+              labels={"value": "Andel elever (%)", "variable": "Kön", "Läsår": "Läsår"})
